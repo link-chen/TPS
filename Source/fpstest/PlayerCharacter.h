@@ -8,6 +8,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "UMG.h"
+#include "AK47.h"
 #include "Bullte.h"
 #include "PlayerCharacter.generated.h"
 
@@ -46,13 +47,17 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int HitValue;
 
+	//枪械属性界面和玩家生命值界面
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HUD")
 	TSubclassOf<UUserWidget> HUDAssert;
 	UPROPERTY()
 	UUserWidget* HUDOverlay;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Gun");
-	TSubclassOf<AGun> Gun;
+	//泛型枪械
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Gun")
+	TSubclassOf<class AAK47> Gun;
+	UPROPERTY(BlueprintReadWrite)
+	AAK47* AK;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -68,8 +73,8 @@ public:
 	void RayCast();
 
 	//
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION()
 	void Fire();
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION()
 	void Reload();
 };

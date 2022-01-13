@@ -3,6 +3,8 @@
 
 #include "AK47.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 AAK47::AAK47()
 {
@@ -27,6 +29,10 @@ void AAK47::Fire()
 	if(BullteNumber>0)
 	{
 		BullteNumber--;
+		if(Sound!=nullptr)
+		{
+			UGameplayStatics::PlaySound2D(this,Sound);
+		}
 	}
 	else
 	{

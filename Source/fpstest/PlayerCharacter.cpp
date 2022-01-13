@@ -44,7 +44,8 @@ void APlayerCharacter::BeginPlay()
 	}
 	if(Gun!=nullptr)
 	{
-		
+		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
+		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepWorldTransform,"weapon");
 	}
 }
 // Called every frame
@@ -78,6 +79,17 @@ void APlayerCharacter::RayCast()
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult,Start,End,ECollisionChannel::ECC_Visibility,NULL);
 }
+void APlayerCharacter::Fire()
+{
+	if(AK!=nullptr)
+		AK->Fire();
+}
+void APlayerCharacter::Reload()
+{
+	if(AK!=nullptr)
+		AK->ReLoad();
+}
+
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

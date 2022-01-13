@@ -28,6 +28,10 @@ public:
 
 	UPROPERTY(EditInstanceOnly,BlueprintReadWrite)
 	FString GunLable;
+
+	UPROPERTY(EditAnywhere)
+	class USoundBase* Sound;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
