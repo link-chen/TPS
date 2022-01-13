@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/AudioComponent.h"
 #include "AK47.generated.h"
 
 UCLASS()
@@ -30,7 +31,8 @@ public:
 	FString GunLable;
 
 	UPROPERTY(EditAnywhere)
-	class USoundBase* Sound;
+	UAudioComponent* Audio;
+
 	
 protected:
 	// Called when the game starts or when spawned

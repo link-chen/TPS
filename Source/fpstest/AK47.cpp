@@ -16,6 +16,8 @@ AAK47::AAK47()
 	Mesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GunMesh"));
 	Scene=CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
 	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	Audio=CreateDefaultSubobject<UAudioComponent>(TEXT("FireSound"));
 }
 
 // Called when the game starts or when spawned
@@ -29,9 +31,10 @@ void AAK47::Fire()
 	if(BullteNumber>0)
 	{
 		BullteNumber--;
-		if(Sound!=nullptr)
+		if(Audio!=nullptr)
 		{
-			UGameplayStatics::PlaySound2D(this,Sound);
+			Audio->Play();
+			UE_LOG(LogTemp,Warning,TEXT("Fire"));
 		}
 	}
 	else
