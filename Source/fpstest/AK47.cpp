@@ -12,6 +12,7 @@ AAK47::AAK47()
 	PrimaryActorTick.bCanEverTick = true;
 	TotalBullteNumber=175;
 	BullteNumber=35;
+	TimeForNextShot=0.1;
 
 	Mesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GunMesh"));
 	Scene=CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));

@@ -21,6 +21,8 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	int TotalBullteNumber;
 	int HitValue;
+	UPROPERTY(EditAnywhere)
+	float TimeForNextShot;
 	
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;

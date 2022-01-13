@@ -58,6 +58,9 @@ public:
 	TSubclassOf<class AAK47> Gun;
 	UPROPERTY(BlueprintReadWrite)
 	AAK47* AK;
+
+	//连发计时器
+	FTimerHandle ShotTime;
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -77,4 +80,8 @@ public:
 	void Fire();
 	UFUNCTION()
 	void Reload();
+	UFUNCTION()
+	void GunFire();
+	UFUNCTION()
+	void CancleFire();
 };

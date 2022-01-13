@@ -81,13 +81,23 @@ void APlayerCharacter::RayCast()
 }
 void APlayerCharacter::Fire()
 {
-	if(AK!=nullptr)
-		AK->Fire();
+	GunFire();
+	GetWorldTimerManager().SetTimer(ShotTime,this,&APlayerCharacter::GunFire,AK->TimeForNextShot,true);
 }
+void APlayerCharacter::CancleFire()
+{
+	GetWorldTimerManager().ClearTimer(ShotTime);
+}
+
 void APlayerCharacter::Reload()
 {
 	if(AK!=nullptr)
 		AK->ReLoad();
+}
+void APlayerCharacter::GunFire()
+{
+	if(AK!=nullptr)
+		AK->Fire();
 }
 
 // Called to bind functionality to input
@@ -104,6 +114,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Jump",IE_Released,this,&APlayerCharacter::StopJump);
 
 	PlayerInputComponent->BindAction("Fire",IE_Pressed,this,&APlayerCharacter::Fire);
+	PlayerInputComponent->BindAction("Fire",IE_Released,this,&APlayerCharacter::CancleFire);
+	
 	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&APlayerCharacter::Reload);
 }
 
