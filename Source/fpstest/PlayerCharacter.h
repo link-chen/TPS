@@ -38,7 +38,11 @@ public:
 	UStaticMeshComponent* Gun1;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UStaticMeshComponent* Gun2;
-
+	
+	// 枪口相对于摄像机位置的偏移。
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	FVector MuzzleOffset;
+	
 	//攻击属性
 	UPROPERTY(BlueprintReadWrite)
 	int MaxBlood;

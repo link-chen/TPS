@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Bullte.h"
 #include "Components/AudioComponent.h"
 #include "AK47.generated.h"
 
@@ -16,25 +17,27 @@ public:
 	// Sets default values for this actor's properties
 	AAK47();
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	int BullteNumber;
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	int TotalBullteNumber;
+	int MaxBullteNumber;
 	int HitValue;
 	UPROPERTY(EditAnywhere)
 	float TimeForNextShot;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	FVector MuzzleOffset;
 	
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Scene;
-
-	UPROPERTY(EditInstanceOnly,BlueprintReadWrite)
-	FString GunLable;
-
 	UPROPERTY(EditAnywhere)
 	UAudioComponent* Audio;
 
+	UPROPERTY(EditAnywhere,Category="Bullte")
+	TSubclassOf<class ABullte> Bullte;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -45,9 +48,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void Fire();
+	void Fire(FVector MuzzleLocation,FRotator MuzzleRotation);
 	UFUNCTION(BlueprintCallable)
 	void ReLoad();
+	UFUNCTION()
+	void UseBullte(FVector MuzzleLocation,FRotator MuzzleRotation);
 	UFUNCTION(BlueprintImplementableEvent)
 	void Light();
 };

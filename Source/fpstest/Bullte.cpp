@@ -15,6 +15,13 @@ ABullte::ABullte()
 	FScriptDelegate Hit;
 	Hit.BindUFunction(this,"OnHit");
 	Mesh->OnComponentHit.Add(Hit);
+
+	ProjectileMovementComponent=CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MoveComponent"));
+	ProjectileMovementComponent->SetUpdatedComponent(Mesh);
+	ProjectileMovementComponent->InitialSpeed=300;
+	ProjectileMovementComponent->MaxSpeed=300;
+	
+	InitialLifeSpan = 3.0f;
 }
 
 // Called when the game starts or when spawned
@@ -26,7 +33,8 @@ void ABullte::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveCompon
 {
 	if(AEnemySoldier* Soldier=Cast<AEnemySoldier>(Other))
 	{
-		
+		Soldier->CurrentBlood-=45;
+		Destroy();
 	}
 }
 // Called every frame

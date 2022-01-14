@@ -45,6 +45,8 @@ void APlayerCharacter::BeginPlay()
 	if(Gun!=nullptr)
 	{
 		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
+		AK->AddActorLocalRotation(FRotator(0.0f,-93.0f,0.0f));
+		AK->AddActorLocalOffset(FVector(-30.0f,-12.0f,0.0f));
 		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepWorldTransform,"weapon");
 	}
 }
@@ -96,8 +98,21 @@ void APlayerCharacter::Reload()
 }
 void APlayerCharacter::GunFire()
 {
+	// 获取摄像机变换。
+	FVector CameraLocation;
+	FRotator CameraRotation;
+	GetActorEyesViewPoint(CameraLocation, CameraRotation);
+
+	// 设置MuzzleOffset，在略靠近摄像机前生成发射物。
+	MuzzleOffset.Set(0.0f, 45.0f, 5.0f);
+
+	// 将MuzzleOffset从摄像机空间变换到世界空间。
+	FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
+
+	// 使目标方向略向上倾斜。
+	FRotator MuzzleRotation = CameraRotation;
 	if(AK!=nullptr)
-		AK->Fire();
+		AK->Fire(MuzzleLocation,MuzzleRotation);
 }
 
 // Called to bind functionality to input

@@ -9,6 +9,8 @@ AEnemySoldier::AEnemySoldier()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	SoldierMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	MaxBlood=150;
+	CurrentBlood=MaxBlood;
 }
 
 // Called when the game starts or when spawned
@@ -22,6 +24,10 @@ void AEnemySoldier::BeginPlay()
 void AEnemySoldier::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if(CurrentBlood<=0)
+	{
+		Destroy();
+	}
 
 }
 void AEnemySoldier::Count()

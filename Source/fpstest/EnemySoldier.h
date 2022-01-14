@@ -15,7 +15,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* SoldierMesh;
 	FTimerHandle TimerHandle_Count;
-	int LiveTime=360;
+	int LiveTime=30;
 	int MaxBlood;
 	int CurrentBlood;
 	// Sets default values for this character's properties
