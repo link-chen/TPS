@@ -48,4 +48,6 @@ public:
 	void Fire();
 	UFUNCTION(BlueprintCallable)
 	void ReLoad();
+	UFUNCTION(BlueprintImplementableEvent)
+	void Light();
 };

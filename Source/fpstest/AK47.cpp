@@ -32,6 +32,7 @@ void AAK47::Fire()
 	if(BullteNumber>0)
 	{
 		BullteNumber--;
+		Light();
 		if(Audio!=nullptr)
 		{
 			Audio->Play();
