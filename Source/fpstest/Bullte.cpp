@@ -10,14 +10,22 @@ ABullte::ABullte()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	
+	
+	CollisonComponent=CreateDefaultSubobject<USphereComponent>(TEXT("Collison"));
+	CollisonComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CollisonComponent->SetSphereRadius(15.0);
 	Mesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	Mesh->SetupAttachment(CollisonComponent);
+	
 	FScriptDelegate Hit;
-	Hit.BindUFunction(this,"OnHit");
-	Mesh->OnComponentHit.Add(Hit);
+	Hit.BindUFunction(this,"OnOverlayBegin");
+	CollisonComponent->OnComponentBeginOverlap.Add(Hit);
+	Mesh->OnComponentBeginOverlap.Add(Hit);
+	
 
 	ProjectileMovementComponent=CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MoveComponent"));
-	ProjectileMovementComponent->SetUpdatedComponent(Mesh);
+	ProjectileMovementComponent->SetUpdatedComponent(CollisonComponent);
 	ProjectileMovementComponent->InitialSpeed=300;
 	ProjectileMovementComponent->MaxSpeed=300;
 	
@@ -29,12 +37,11 @@ void ABullte::BeginPlay()
 {
 	Super::BeginPlay();
 }
-void ABullte::OnHit(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+void ABullte::OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if(AEnemySoldier* Soldier=Cast<AEnemySoldier>(Other))
 	{
 		Soldier->CurrentBlood-=45;
-		Destroy();
 	}
 }
 // Called every frame

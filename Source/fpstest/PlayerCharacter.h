@@ -88,4 +88,6 @@ public:
 	void GunFire();
 	UFUNCTION()
 	void CancleFire();
+	UFUNCTION()
+	void ShowBag();
 };

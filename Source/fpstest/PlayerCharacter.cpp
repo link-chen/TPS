@@ -46,8 +46,8 @@ void APlayerCharacter::BeginPlay()
 	{
 		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
 		AK->AddActorLocalRotation(FRotator(0.0f,-93.0f,0.0f));
-		AK->AddActorLocalOffset(FVector(-30.0f,-12.0f,0.0f));
-		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepWorldTransform,"weapon");
+		AK->AddActorLocalOffset(FVector(30.0f,15.0f,0.0f));
+		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepWorldTransform,"weapon_l");
 	}
 }
 // Called every frame
@@ -114,6 +114,10 @@ void APlayerCharacter::GunFire()
 	if(AK!=nullptr)
 		AK->Fire(MuzzleLocation,MuzzleRotation);
 }
+void APlayerCharacter::ShowBag()
+{
+	
+}
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -127,10 +131,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&APlayerCharacter::StartJump);
 	PlayerInputComponent->BindAction("Jump",IE_Released,this,&APlayerCharacter::StopJump);
-
 	PlayerInputComponent->BindAction("Fire",IE_Pressed,this,&APlayerCharacter::Fire);
 	PlayerInputComponent->BindAction("Fire",IE_Released,this,&APlayerCharacter::CancleFire);
-	
 	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&APlayerCharacter::Reload);
+	PlayerInputComponent->BindAction("ShowBag",IE_Pressed,this,&APlayerCharacter::ShowBag);
 }
 
