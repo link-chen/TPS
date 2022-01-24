@@ -86,4 +86,6 @@ public:
 	void CancleFire();
 	UFUNCTION()
 	void ShowBag();
+	UFUNCTION()
+	void Fun();
 };

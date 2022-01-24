@@ -42,7 +42,7 @@ void APlayerCharacter::BeginPlay()
 	{
 		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
 		AK->SetActorRotation(FRotator(90.0f,-90.0f,-0.0f));
-		AK->AddActorLocalRotation(FRotator(-37.5f,0.0f,0.0f));
+		AK->AddActorLocalRotation(FRotator(-41.5f,0.0f,0.0f));
 		AK->SetActorLocation(FVector(3.563325f,-1.409857f,4.817779f));
 		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
 	}
@@ -115,6 +115,10 @@ void APlayerCharacter::ShowBag()
 {
 	
 }
+void APlayerCharacter::Fun()
+{
+	
+}
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -132,5 +136,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Fire",IE_Released,this,&APlayerCharacter::CancleFire);
 	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&APlayerCharacter::Reload);
 	PlayerInputComponent->BindAction("ShowBag",IE_Pressed,this,&APlayerCharacter::ShowBag);
+	PlayerInputComponent->BindAction("Aim",IE_Pressed,this,&APlayerCharacter::Fun);
 }
 
