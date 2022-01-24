@@ -21,10 +21,6 @@ APlayerCharacter::APlayerCharacter()
 	Arm->SetupAttachment(RootComponent);
 	Camera->SetupAttachment(RootComponent);
 	Camera->bUsePawnControlRotation=true;
-	Gun1=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GunMesh1"));
-	Gun1->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"weapon");
-	Gun2=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GunMesh2"));
-	Gun2->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"weapon");
 	//
 	MaxBlood=100;
 	CurrentBlood=MaxBlood;
@@ -45,9 +41,10 @@ void APlayerCharacter::BeginPlay()
 	if(Gun!=nullptr)
 	{
 		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
-		AK->AddActorLocalRotation(FRotator(0.0f,-93.0f,0.0f));
-		AK->AddActorLocalOffset(FVector(30.0f,15.0f,0.0f));
-		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepWorldTransform,"weapon_l");
+		AK->SetActorRotation(FRotator(90.0f,-90.0f,-0.0f));
+		AK->AddActorLocalRotation(FRotator(-37.5f,0.0f,0.0f));
+		AK->SetActorLocation(FVector(3.563325f,-1.409857f,4.817779f));
+		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
 	}
 }
 // Called every frame
