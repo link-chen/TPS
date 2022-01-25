@@ -3,6 +3,7 @@
 
 #include "AK47.h"
 
+#include "MovieSceneTracksComponentTypes.h"
 #include "PlayerCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -16,7 +17,8 @@ AAK47::AAK47()
 	Mesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GunMesh"));
 	Scene=CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
 	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
+	FireSpace=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FireSpace"));
+	FireSpace->AttachToComponent(Mesh,FAttachmentTransformRules::KeepRelativeTransform,"Muzzle");
 	Audio=CreateDefaultSubobject<UAudioComponent>(TEXT("FireSound"));
 }
 
@@ -51,10 +53,9 @@ void AAK47::UseBullte(FVector MuzzleLocation,FRotator MuzzleRotation)
 		UWorld* World=GetWorld();
 		if(World)
 		{
-			FActorSpawnParameters SpawnParams;
-			SpawnParams.Owner = this;
-			SpawnParams.Instigator = GetInstigator();
-			ABullte* GunBullte=World->SpawnActor<ABullte>(Bullte,MuzzleLocation,MuzzleRotation,SpawnParams);
+			UE_LOG(LogTemp,Warning,TEXT("%f %f %f"),GetVector().X,GetVector().Y,GetVector().Z);
+			UE_LOG(LogTemp,Warning,TEXT("%f %f %f"),GetFireRotator().Pitch,GetFireRotator().Yaw,GetFireRotator().Roll);
+			ABullte* GunBullte=World->SpawnActor<ABullte>(Bullte,GetVector(),GetFireRotator()+FRotator(0.0f,90.0f,0.0f));
 		}
 	}
 }
@@ -79,5 +80,14 @@ void AAK47::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+FVector AAK47::GetVector()
+{
+	return FireSpace->GetComponentLocation();
+}
+
+FRotator AAK47::GetFireRotator()
+{
+	return FireSpace->GetComponentRotation();
 }
 

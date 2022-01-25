@@ -29,7 +29,7 @@ ABullte::ABullte()
 	ProjectileMovementComponent->InitialSpeed=300;
 	ProjectileMovementComponent->MaxSpeed=300;
 	
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 9.0f;
 }
 
 // Called when the game starts or when spawned

@@ -14,14 +14,15 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	//
+	//设置胶囊体/弹簧臂/摄像机
 	GetCapsuleComponent()->InitCapsuleSize(40,96);
 	Camera=CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Arm=CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	Arm->SetupAttachment(RootComponent);
 	Camera->SetupAttachment(RootComponent);
 	Camera->bUsePawnControlRotation=true;
-	//
+
+	//生命值相关设计
 	MaxBlood=100;
 	CurrentBlood=MaxBlood;
 }
@@ -41,8 +42,7 @@ void APlayerCharacter::BeginPlay()
 	if(Gun!=nullptr)
 	{
 		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
-		AK->SetActorRotation(FRotator(90.0f,-90.0f,-0.0f));
-		AK->AddActorLocalRotation(FRotator(-41.5f,0.0f,0.0f));
+		AK->SetActorRelativeRotation(FRotator(0.0f,-90.0f,5.0f));
 		AK->SetActorLocation(FVector(3.563325f,-1.409857f,4.817779f));
 		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
 	}
@@ -101,15 +101,16 @@ void APlayerCharacter::GunFire()
 	GetActorEyesViewPoint(CameraLocation, CameraRotation);
 
 	// 设置MuzzleOffset，在略靠近摄像机前生成发射物。
-	MuzzleOffset.Set(0.0f, 45.0f, 5.0f);
-
+	MuzzleOffset.Set(175.0f, 65.0f, 10.0f);
+	
 	// 将MuzzleOffset从摄像机空间变换到世界空间。
-	FVector MuzzleLocation = CameraLocation + FTransform(CameraRotation).TransformVector(MuzzleOffset);
-
+	FVector MuzzleLocation =CameraLocation+ FTransform(CameraRotation).TransformVector(MuzzleOffset);
 	// 使目标方向略向上倾斜。
 	FRotator MuzzleRotation = CameraRotation;
 	if(AK!=nullptr)
+	{
 		AK->Fire(MuzzleLocation,MuzzleRotation);
+	}
 }
 void APlayerCharacter::ShowBag()
 {

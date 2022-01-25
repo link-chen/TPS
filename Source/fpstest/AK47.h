@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Bullte.h"
-#include "Components/AudioComponent.h"
 #include "AK47.generated.h"
 
 UCLASS()
@@ -31,6 +30,8 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* FireSpace;
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Scene;
 	UPROPERTY(EditAnywhere)
@@ -55,4 +56,7 @@ public:
 	void UseBullte(FVector MuzzleLocation,FRotator MuzzleRotation);
 	UFUNCTION(BlueprintImplementableEvent)
 	void Light();
+
+	FVector GetVector();
+	FRotator GetFireRotator();
 };
