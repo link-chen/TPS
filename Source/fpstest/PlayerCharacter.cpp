@@ -24,6 +24,10 @@ APlayerCharacter::APlayerCharacter()
 	//生命值相关设计
 	MaxBlood=100;
 	CurrentBlood=MaxBlood;
+
+	//行动模式
+	WalkSpeed=480;
+	RunSpeed=1200;
 }
 
 // Called when the game starts or when spawned
@@ -114,6 +118,15 @@ void APlayerCharacter::Fun()
 {
 	
 }
+void APlayerCharacter::TurnIntoActiveMode()
+{
+	GetCharacterMovement()->MaxWalkSpeed=RunSpeed;
+}
+void APlayerCharacter::CancleActiveMode()
+{
+	GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
+}
+
 void APlayerCharacter::ChangeGunF()
 {
 	ChangeGun=AK0;
@@ -146,5 +159,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("ShowBag",IE_Pressed,this,&APlayerCharacter::ShowBag);
 	PlayerInputComponent->BindAction("Aim",IE_Pressed,this,&APlayerCharacter::Fun);
 	PlayerInputComponent->BindAction("ChangeGun",IE_Pressed,this,&APlayerCharacter::ChangeGunF);
+	PlayerInputComponent->BindAction("ChangeActiveMode",IE_Pressed,this,&APlayerCharacter::TurnIntoActiveMode);
+	PlayerInputComponent->BindAction("ChangeActiveMode",IE_Released,this,&APlayerCharacter::CancleActiveMode);
 }
-

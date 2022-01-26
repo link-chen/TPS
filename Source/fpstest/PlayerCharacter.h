@@ -27,7 +27,7 @@ protected:
 
 public:
 
-    //摄像机和武器
+	//摄像机和武器
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UCameraComponent* Camera;
 	UPROPERTY(EditAnywhere)
@@ -46,6 +46,12 @@ public:
 	int CurrentBlood;
 	UPROPERTY(BlueprintReadWrite)
 	int HitValue;
+
+	//行动模式属性
+	UPROPERTY(EditAnywhere)
+	float WalkSpeed;
+	UPROPERTY(EditAnywhere)
+	float RunSpeed;
 
 	//枪械属性界面和玩家生命值界面
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HUD")
@@ -96,4 +102,8 @@ public:
 	void Fun();
 	UFUNCTION()
 	void ChangeGunF();
+	UFUNCTION()
+	void TurnIntoActiveMode();
+	UFUNCTION()
+	void CancleActiveMode();
 };
