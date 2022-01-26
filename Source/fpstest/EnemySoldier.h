@@ -12,8 +12,6 @@ class FPSTEST_API AEnemySoldier : public ACharacter
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* SoldierMesh;
 	FTimerHandle TimerHandle_Count;
 	int LiveTime=30;
 	int MaxBlood;

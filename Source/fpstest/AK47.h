@@ -49,11 +49,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void Fire(FVector MuzzleLocation,FRotator MuzzleRotation);
+	void Fire();
 	UFUNCTION(BlueprintCallable)
 	void ReLoad();
 	UFUNCTION()
-	void UseBullte(FVector MuzzleLocation,FRotator MuzzleRotation);
+	void UseBullte();
 	UFUNCTION(BlueprintImplementableEvent)
 	void Light();
 

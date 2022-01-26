@@ -20,7 +20,6 @@ APlayerCharacter::APlayerCharacter()
 	Arm=CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	Arm->SetupAttachment(RootComponent);
 	Camera->SetupAttachment(RootComponent);
-	Camera->bUsePawnControlRotation=true;
 
 	//生命值相关设计
 	MaxBlood=100;
@@ -42,8 +41,8 @@ void APlayerCharacter::BeginPlay()
 	if(Gun!=nullptr)
 	{
 		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
-		AK->SetActorRelativeRotation(FRotator(0.0f,-90.0f,5.0f));
-		AK->SetActorLocation(FVector(3.563325f,-1.409857f,4.817779f));
+		AK->SetActorRelativeRotation(FRotator(0.238f,-87.199f,0.092f));
+		AK->SetActorLocation(FVector(3.90425f,-1.532887f,0.834234f));
 		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
 	}
 }
@@ -95,21 +94,9 @@ void APlayerCharacter::Reload()
 }
 void APlayerCharacter::GunFire()
 {
-	// 获取摄像机变换。
-	FVector CameraLocation;
-	FRotator CameraRotation;
-	GetActorEyesViewPoint(CameraLocation, CameraRotation);
-
-	// 设置MuzzleOffset，在略靠近摄像机前生成发射物。
-	MuzzleOffset.Set(175.0f, 65.0f, 10.0f);
-	
-	// 将MuzzleOffset从摄像机空间变换到世界空间。
-	FVector MuzzleLocation =CameraLocation+ FTransform(CameraRotation).TransformVector(MuzzleOffset);
-	// 使目标方向略向上倾斜。
-	FRotator MuzzleRotation = CameraRotation;
 	if(AK!=nullptr)
 	{
-		AK->Fire(MuzzleLocation,MuzzleRotation);
+		AK->Fire();
 	}
 }
 void APlayerCharacter::ShowBag()
@@ -129,7 +116,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("MoveForward",this,&APlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight",this,&APlayerCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn",this,&APlayerCharacter::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("LookUp",this,&APlayerCharacter::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&APlayerCharacter::StartJump);
 	PlayerInputComponent->BindAction("Jump",IE_Released,this,&APlayerCharacter::StopJump);

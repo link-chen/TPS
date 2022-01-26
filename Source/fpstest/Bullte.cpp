@@ -44,6 +44,10 @@ void ABullte::OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimit
 		Soldier->CurrentBlood-=45;
 	}
 }
+void ABullte::SetV(FVector NewVelocity)
+{
+	ProjectileMovementComponent->SetVelocityInLocalSpace(NewVelocity);
+}
 // Called every frame
 void ABullte::Tick(float DeltaTime)
 {

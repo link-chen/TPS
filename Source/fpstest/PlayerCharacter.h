@@ -28,7 +28,7 @@ protected:
 public:
 
     //摄像机和武器
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UCameraComponent* Camera;
 	UPROPERTY(EditAnywhere)
 	USpringArmComponent* Arm;

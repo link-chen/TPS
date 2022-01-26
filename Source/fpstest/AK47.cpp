@@ -29,13 +29,13 @@ void AAK47::BeginPlay()
 	
 	MaxBullteNumber=BullteNumber;
 }
-void AAK47::Fire(FVector MuzzleLocation,FRotator MuzzleRotation)
+void AAK47::Fire()
 {
 	if(BullteNumber>0)
 	{
 		BullteNumber--;
 		Light();
-		UseBullte(MuzzleLocation,MuzzleRotation);
+		UseBullte();
 		if(Audio!=nullptr)
 		{
 			Audio->Play();
@@ -46,15 +46,13 @@ void AAK47::Fire(FVector MuzzleLocation,FRotator MuzzleRotation)
 		//ReLoad();
 	}
 }
-void AAK47::UseBullte(FVector MuzzleLocation,FRotator MuzzleRotation)
+void AAK47::UseBullte()
 {
 	if(Bullte)
 	{
 		UWorld* World=GetWorld();
 		if(World)
 		{
-			UE_LOG(LogTemp,Warning,TEXT("%f %f %f"),GetVector().X,GetVector().Y,GetVector().Z);
-			UE_LOG(LogTemp,Warning,TEXT("%f %f %f"),GetFireRotator().Pitch,GetFireRotator().Yaw,GetFireRotator().Roll);
 			ABullte* GunBullte=World->SpawnActor<ABullte>(Bullte,GetVector(),GetFireRotator()+FRotator(0.0f,90.0f,0.0f));
 		}
 	}
