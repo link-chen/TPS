@@ -55,9 +55,15 @@ public:
 
 	//泛型枪械
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Gun")
-	TSubclassOf<class AAK47> Gun;
+	TSubclassOf<class AAK47> Gun0;
 	UPROPERTY(BlueprintReadWrite)
-	AAK47* AK;
+	AAK47* AK0;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Gun")
+	TSubclassOf<class AAK47> Gun1;
+	UPROPERTY(BlueprintReadWrite)
+	AAK47* AK1;
+	UPROPERTY()
+	AAK47* ChangeGun;
 
 	//连发计时器
 	FTimerHandle ShotTime;
@@ -88,4 +94,6 @@ public:
 	void ShowBag();
 	UFUNCTION()
 	void Fun();
+	UFUNCTION()
+	void ChangeGunF();
 };

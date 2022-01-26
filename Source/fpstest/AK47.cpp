@@ -53,6 +53,7 @@ void AAK47::UseBullte()
 		UWorld* World=GetWorld();
 		if(World)
 		{
+			UE_LOG(LogTemp,Warning,TEXT("Fire"));
 			ABullte* GunBullte=World->SpawnActor<ABullte>(Bullte,GetVector(),GetFireRotator()+FRotator(0.0f,90.0f,0.0f));
 		}
 	}

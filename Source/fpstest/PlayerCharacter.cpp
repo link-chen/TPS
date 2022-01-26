@@ -38,12 +38,19 @@ void APlayerCharacter::BeginPlay()
 			HUDOverlay->AddToViewport();
 		}
 	}
-	if(Gun!=nullptr)
+	if(Gun0!=nullptr)
 	{
-		AK=GetWorld()->SpawnActor<AAK47>(Gun,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
-		AK->SetActorRelativeRotation(FRotator(0.238f,-87.199f,0.092f));
-		AK->SetActorLocation(FVector(3.90425f,-1.532887f,0.834234f));
-		AK->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
+		AK0=GetWorld()->SpawnActor<AAK47>(Gun0,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
+		AK0->SetActorRelativeRotation(FRotator(0.238f,-87.199f,0.092f));
+		AK0->SetActorLocation(FVector(3.90425f,-1.532887f,0.834234f));
+		AK0->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
+	}
+	if(Gun1!=nullptr)
+	{
+		AK1=GetWorld()->SpawnActor<AAK47>(Gun1,GetActorLocation(),GetActorRotation(),FActorSpawnParameters());
+		AK1->SetActorRelativeRotation(FRotator(0.35476f,345.512939f,7.144461f));
+		AK1->SetActorLocation(FVector(0.085958f,-6.778508f,4.11748f));
+		AK1->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"otherweapon");
 	}
 }
 // Called every frame
@@ -80,7 +87,7 @@ void APlayerCharacter::RayCast()
 void APlayerCharacter::Fire()
 {
 	GunFire();
-	GetWorldTimerManager().SetTimer(ShotTime,this,&APlayerCharacter::GunFire,AK->TimeForNextShot,true);
+	GetWorldTimerManager().SetTimer(ShotTime,this,&APlayerCharacter::GunFire,AK0->TimeForNextShot,true);
 }
 void APlayerCharacter::CancleFire()
 {
@@ -89,14 +96,14 @@ void APlayerCharacter::CancleFire()
 
 void APlayerCharacter::Reload()
 {
-	if(AK!=nullptr)
-		AK->ReLoad();
+	if(AK0!=nullptr)
+		AK0->ReLoad();
 }
 void APlayerCharacter::GunFire()
 {
-	if(AK!=nullptr)
+	if(AK0!=nullptr)
 	{
-		AK->Fire();
+		AK0->Fire();
 	}
 }
 void APlayerCharacter::ShowBag()
@@ -106,6 +113,20 @@ void APlayerCharacter::ShowBag()
 void APlayerCharacter::Fun()
 {
 	
+}
+void APlayerCharacter::ChangeGunF()
+{
+	ChangeGun=AK0;
+	AK0=AK1;
+	AK1=ChangeGun;
+
+	AK0->SetActorRelativeRotation(FRotator(0.238f,-87.199f,0.092f));
+	AK0->SetActorRelativeLocation(FVector(3.90425f,-1.532887f,0.834234f));
+	AK0->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"WeaponSocket");
+
+	AK1->SetActorRelativeRotation(FRotator(0.35476f,345.512939f,7.144461f));
+	AK1->SetActorRelativeLocation(FVector(0.085958f,-6.778508f,4.11748f));
+	AK1->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"otherweapon");
 }
 
 // Called to bind functionality to input
@@ -124,5 +145,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&APlayerCharacter::Reload);
 	PlayerInputComponent->BindAction("ShowBag",IE_Pressed,this,&APlayerCharacter::ShowBag);
 	PlayerInputComponent->BindAction("Aim",IE_Pressed,this,&APlayerCharacter::Fun);
+	PlayerInputComponent->BindAction("ChangeGun",IE_Pressed,this,&APlayerCharacter::ChangeGunF);
 }
 
