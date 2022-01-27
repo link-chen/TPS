@@ -28,6 +28,7 @@ void AAK47::BeginPlay()
 	Super::BeginPlay();
 	
 	MaxBullteNumber=BullteNumber;
+	MaxTotalBullteNumber=TotalBullteNumber;
 }
 void AAK47::Fire()
 {
@@ -88,5 +89,10 @@ FVector AAK47::GetVector()
 FRotator AAK47::GetFireRotator()
 {
 	return FireSpace->GetComponentRotation();
+}
+void AAK47::ReLoadBullte()
+{
+	BullteNumber=MaxBullteNumber;
+	TotalBullteNumber=MaxTotalBullteNumber;
 }
 

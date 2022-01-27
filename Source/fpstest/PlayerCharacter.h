@@ -39,14 +39,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	FVector MuzzleOffset;
 	
-	//攻击属性
+	//玩家基础属性
 	UPROPERTY(BlueprintReadWrite)
 	int MaxBlood;
 	UPROPERTY(BlueprintReadWrite)
 	int CurrentBlood;
 	UPROPERTY(BlueprintReadWrite)
 	int HitValue;
-
+	UPROPERTY(BlueprintReadWrite)
+	bool bCanLoadBullte;
+	
 	//行动模式属性
 	UPROPERTY(EditAnywhere)
 	float WalkSpeed;
@@ -87,7 +89,7 @@ public:
 	void StopJump();
 	void RayCast();
 
-	//
+	//枪械功能
 	UFUNCTION()
 	void Fire();
 	UFUNCTION()
@@ -97,11 +99,19 @@ public:
 	UFUNCTION()
 	void CancleFire();
 	UFUNCTION()
+	void ReLoadBullte();
+	
+	//背包设置
 	void ShowBag();
 	UFUNCTION()
+	
 	void Fun();
+
+	//换抢
 	UFUNCTION()
 	void ChangeGunF();
+
+	//行动模式
 	UFUNCTION()
 	void TurnIntoActiveMode();
 	UFUNCTION()

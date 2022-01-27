@@ -20,7 +20,7 @@ public:
 	int BullteNumber;
 	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	int TotalBullteNumber;
-	int MaxBullteNumber;
+	int MaxBullteNumber,MaxTotalBullteNumber;
 	int HitValue;
 	UPROPERTY(EditAnywhere)
 	float TimeForNextShot;
@@ -56,6 +56,8 @@ public:
 	void UseBullte();
 	UFUNCTION(BlueprintImplementableEvent)
 	void Light();
+	UFUNCTION()
+	void ReLoadBullte();
 
 	FVector GetVector();
 	FRotator GetFireRotator();

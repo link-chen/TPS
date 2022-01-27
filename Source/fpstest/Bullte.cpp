@@ -21,7 +21,6 @@ ABullte::ABullte()
 	FScriptDelegate Hit;
 	Hit.BindUFunction(this,"OnOverlayBegin");
 	CollisonComponent->OnComponentBeginOverlap.Add(Hit);
-	Mesh->OnComponentBeginOverlap.Add(Hit);
 	
 
 	ProjectileMovementComponent=CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MoveComponent"));

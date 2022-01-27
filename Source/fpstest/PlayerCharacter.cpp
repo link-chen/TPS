@@ -2,11 +2,8 @@
 
 
 #include "PlayerCharacter.h"
-
-#include "DrawDebugHelpers.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/CapsuleComponent.h"
-#include "GameFramework/GameSession.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -24,7 +21,8 @@ APlayerCharacter::APlayerCharacter()
 	//生命值相关设计
 	MaxBlood=100;
 	CurrentBlood=MaxBlood;
-
+	bCanLoadBullte=false;
+	
 	//行动模式
 	WalkSpeed=480;
 	RunSpeed=1200;
@@ -141,6 +139,14 @@ void APlayerCharacter::ChangeGunF()
 	AK1->SetActorRelativeLocation(FVector(0.085958f,-6.778508f,4.11748f));
 	AK1->AttachToComponent(GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,"otherweapon");
 }
+void APlayerCharacter::ReLoadBullte()
+{
+	if(bCanLoadBullte)
+	{
+		AK0->ReLoadBullte();
+		AK1->ReLoadBullte();
+	}
+}
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -153,12 +159,20 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&APlayerCharacter::StartJump);
 	PlayerInputComponent->BindAction("Jump",IE_Released,this,&APlayerCharacter::StopJump);
+	
 	PlayerInputComponent->BindAction("Fire",IE_Pressed,this,&APlayerCharacter::Fire);
 	PlayerInputComponent->BindAction("Fire",IE_Released,this,&APlayerCharacter::CancleFire);
+	
 	PlayerInputComponent->BindAction("Reload",IE_Pressed,this,&APlayerCharacter::Reload);
+
 	PlayerInputComponent->BindAction("ShowBag",IE_Pressed,this,&APlayerCharacter::ShowBag);
+
 	PlayerInputComponent->BindAction("Aim",IE_Pressed,this,&APlayerCharacter::Fun);
+
 	PlayerInputComponent->BindAction("ChangeGun",IE_Pressed,this,&APlayerCharacter::ChangeGunF);
+
 	PlayerInputComponent->BindAction("ChangeActiveMode",IE_Pressed,this,&APlayerCharacter::TurnIntoActiveMode);
 	PlayerInputComponent->BindAction("ChangeActiveMode",IE_Released,this,&APlayerCharacter::CancleActiveMode);
+
+	PlayerInputComponent->BindAction("ReLoadBullte",IE_Pressed,this,&APlayerCharacter::ReLoadBullte);
 }
