@@ -9,7 +9,6 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "UMG.h"
 #include "AK47.h"
-#include "Bullte.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -48,6 +47,8 @@ public:
 	int HitValue;
 	UPROPERTY(BlueprintReadWrite)
 	bool bCanLoadBullte;
+	UPROPERTY(BlueprintReadWrite)
+	int Level;
 	
 	//行动模式属性
 	UPROPERTY(EditAnywhere)
@@ -72,6 +73,12 @@ public:
 	AAK47* AK1;
 	UPROPERTY()
 	AAK47* ChangeGun;
+
+	//动画
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* ReLoadAnimMontage;
+	UPROPERTY(EditAnywhere)
+    UAnimMontage* FireAnimMontage;
 
 	//连发计时器
 	FTimerHandle ShotTime;

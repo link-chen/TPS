@@ -18,10 +18,14 @@ APlayerCharacter::APlayerCharacter()
 	Arm->SetupAttachment(RootComponent);
 	Camera->SetupAttachment(RootComponent);
 
+	ReLoadAnimMontage=CreateDefaultSubobject<UAnimMontage>(TEXT("Reload"));
+	FireAnimMontage=CreateDefaultSubobject<UAnimMontage>(TEXT("Fire"));
+	
 	//生命值相关设计
 	MaxBlood=100;
 	CurrentBlood=MaxBlood;
 	bCanLoadBullte=false;
+	Level=1;
 	
 	//行动模式
 	WalkSpeed=480;
@@ -99,7 +103,10 @@ void APlayerCharacter::CancleFire()
 void APlayerCharacter::Reload()
 {
 	if(AK0!=nullptr)
+	{
 		AK0->ReLoad();
+		PlayAnimMontage(ReLoadAnimMontage);
+	}
 }
 void APlayerCharacter::GunFire()
 {

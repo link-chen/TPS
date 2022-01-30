@@ -13,6 +13,7 @@ class FPSTEST_API AEnemySoldier : public ACharacter
 
 public:
 	FTimerHandle TimerHandle_Count;
+	UPROPERTY(EditAnywhere)
 	int LiveTime=30;
 	int MaxBlood;
 	int CurrentBlood;

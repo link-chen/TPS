@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Bullte.h"
+#include "Components/AudioComponent.h"
 #include "AK47.generated.h"
 
 UCLASS()

@@ -40,7 +40,15 @@ void ABullte::OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimit
 {
 	if(AEnemySoldier* Soldier=Cast<AEnemySoldier>(Other))
 	{
-		Soldier->CurrentBlood-=45;
+		if(Soldier->CurrentBlood-45<0)
+		{
+			Soldier->CurrentBlood-=45;
+			Hurt();
+		}
+		else
+		{
+			Soldier->CurrentBlood-=45;
+		}
 	}
 }
 void ABullte::SetV(FVector NewVelocity)

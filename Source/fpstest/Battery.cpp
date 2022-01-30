@@ -9,6 +9,7 @@ ABattery::ABattery()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	Mesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 }
 
 // Called when the game starts or when spawned
@@ -30,5 +31,7 @@ void ABattery::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("Turn",this,&ABattery::AddControllerYawInput);
+	PlayerInputComponent->BindAxis("LookUp",this,&ABattery::AddControllerPitchInput);
 }
 
