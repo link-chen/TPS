@@ -47,4 +47,8 @@ void AEnemySoldier::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+int AEnemySoldier::GetScore()
+{
+	return Express;
+}
 

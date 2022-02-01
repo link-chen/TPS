@@ -22,7 +22,8 @@ public:
 	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	int TotalBullteNumber;
 	int MaxBullteNumber,MaxTotalBullteNumber;
-	int HitValue;
+	UPROPERTY(EditAnywhere)
+	int GunHitValue;
 	UPROPERTY(EditAnywhere)
 	float TimeForNextShot;
 
@@ -50,11 +51,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void Fire();
+	void Fire(int PlayerHitValue);
 	UFUNCTION(BlueprintCallable)
 	void ReLoad();
 	UFUNCTION()
-	void UseBullte();
+	void UseBullte(int FinalValue);
 	UFUNCTION(BlueprintImplementableEvent)
 	void Light();
 	UFUNCTION()

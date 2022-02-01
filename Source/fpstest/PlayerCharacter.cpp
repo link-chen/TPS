@@ -26,6 +26,7 @@ APlayerCharacter::APlayerCharacter()
 	CurrentBlood=MaxBlood;
 	bCanLoadBullte=false;
 	Level=1;
+	UPGradeExpress=100;
 	
 	//行动模式
 	WalkSpeed=480;
@@ -64,6 +65,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	RayCast();
+	CheckUpGrade();
 }
 void APlayerCharacter::MoveForward(float Value)
 {
@@ -112,7 +114,7 @@ void APlayerCharacter::GunFire()
 {
 	if(AK0!=nullptr)
 	{
-		AK0->Fire();
+		AK0->Fire(PlayerHitValue);
 	}
 }
 void APlayerCharacter::ShowBag()
@@ -153,6 +155,20 @@ void APlayerCharacter::ReLoadBullte()
 		AK0->ReLoadBullte();
 		AK1->ReLoadBullte();
 	}
+}
+void APlayerCharacter::CheckUpGrade()
+{
+	if(CurrentExpress>=UPGradeExpress)
+	{
+		UpGrade();
+		CurrentExpress-=UPGradeExpress;
+		UPGradeExpress*=2;
+	}
+}
+void APlayerCharacter::UpGrade()
+{
+	Level++;
+	PlayerHitValue+=10;
 }
 
 // Called to bind functionality to input

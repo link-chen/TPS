@@ -11,6 +11,7 @@ ABullte::ABullte()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
+	HitValue=0;
 	
 	CollisonComponent=CreateDefaultSubobject<USphereComponent>(TEXT("Collison"));
 	CollisonComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -40,14 +41,14 @@ void ABullte::OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimit
 {
 	if(AEnemySoldier* Soldier=Cast<AEnemySoldier>(Other))
 	{
-		if(Soldier->CurrentBlood-45<0)
+		if(Soldier->CurrentBlood-HitValue<0)
 		{
-			Soldier->CurrentBlood-=45;
-			Hurt();
+			Soldier->CurrentBlood-=HitValue;
+			Hurt(Soldier->GetScore());
 		}
 		else
 		{
-			Soldier->CurrentBlood-=45;
+			Soldier->CurrentBlood-=HitValue;
 		}
 	}
 }

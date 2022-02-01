@@ -31,7 +31,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = Movement)
 	UProjectileMovementComponent* ProjectileMovementComponent;
 	
-public:	
+public:
+
+	int HitValue;
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	void SetV(FVector NewVelocity);
@@ -40,5 +43,5 @@ public:
 	virtual void OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit);
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void Hurt();
+	void Hurt(int Value);
 };

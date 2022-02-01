@@ -43,12 +43,16 @@ public:
 	int MaxBlood;
 	UPROPERTY(BlueprintReadWrite)
 	int CurrentBlood;
-	UPROPERTY(BlueprintReadWrite)
-	int HitValue;
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	int PlayerHitValue=5;
 	UPROPERTY(BlueprintReadWrite)
 	bool bCanLoadBullte;
 	UPROPERTY(BlueprintReadWrite)
 	int Level;
+	UPROPERTY()
+	int UPGradeExpress;
+	UPROPERTY(BlueprintReadWrite)
+	int CurrentExpress;
 	
 	//行动模式属性
 	UPROPERTY(EditAnywhere)
@@ -113,6 +117,10 @@ public:
 	UFUNCTION()
 	
 	void Fun();
+
+	UFUNCTION(BlueprintCallable)
+	void CheckUpGrade();
+	void UpGrade();
 
 	//换抢
 	UFUNCTION()

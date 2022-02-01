@@ -28,13 +28,13 @@ void AAK47::BeginPlay()
 	MaxBullteNumber=BullteNumber;
 	MaxTotalBullteNumber=TotalBullteNumber;
 }
-void AAK47::Fire()
+void AAK47::Fire(int PlayerHitValue)
 {
 	if(BullteNumber>0)
 	{
 		BullteNumber--;
 		Light();
-		UseBullte();
+		UseBullte(PlayerHitValue+GunHitValue);
 		if(Audio!=nullptr)
 		{
 			Audio->Play();
@@ -45,7 +45,7 @@ void AAK47::Fire()
 		//ReLoad();
 	}
 }
-void AAK47::UseBullte()
+void AAK47::UseBullte(int FinalValue)
 {
 	if(Bullte)
 	{
@@ -53,6 +53,7 @@ void AAK47::UseBullte()
 		if(World)
 		{
 			ABullte* GunBullte=World->SpawnActor<ABullte>(Bullte,GetVector(),GetFireRotator()+FRotator(0.0f,90.0f,0.0f));
+			GunBullte->HitValue+=FinalValue;
 		}
 	}
 }
