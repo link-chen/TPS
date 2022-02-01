@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "Grenade.generated.h"
 
@@ -14,10 +15,23 @@ class FPSTEST_API AGrenade : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AGrenade();
+	void Count();
+	UFUNCTION()
+	virtual void OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit);
+
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
-	
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* HitPlace;
+
 	UPROPERTY(EditAnywhere)
 	int HitValue;
+
+	FTimerHandle CountForBoom;
+
+	UPROPERTY(EditAnywhere)
+	int LeftTime;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
