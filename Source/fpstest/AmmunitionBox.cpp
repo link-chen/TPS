@@ -32,7 +32,6 @@ void AAmmunitionBox::OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, 
 {
 	if(APlayerCharacter* Player=Cast<APlayerCharacter>(Other))
 	{
-		UE_LOG(LogTemp,Warning,TEXT("BeginOverlay"));
 		Player->bCanLoadBullte=true;
 	}
 }
@@ -40,7 +39,6 @@ void AAmmunitionBox::OnOverlayEnd(UPrimitiveComponent* MyComp, AActor* Other, UP
 {
 	if(APlayerCharacter* Player=Cast<APlayerCharacter>(Other))
 	{
-		UE_LOG(LogTemp,Warning,TEXT("OverlayEnd"));
 		Player->bCanLoadBullte=false;
 	}
 }

@@ -18,15 +18,16 @@ public:
 	void Count();
 	UFUNCTION()
 	virtual void OnOverlayBegin(UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit);
-
+	
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* HitPlace;
-
 	UPROPERTY(EditAnywhere)
 	int HitValue;
-
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bBoom;
+	
 	FTimerHandle CountForBoom;
 
 	UPROPERTY(EditAnywhere)
